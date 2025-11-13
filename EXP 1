@@ -1,0 +1,37 @@
+from collections import deque
+goal = [[1,2,3],[4,5,6],[7,8,0]]
+def print_puzzle(p): 
+ for r in p: print(r)
+ print()
+def find_blank(p):
+for i in range(3):
+for j in range(3):
+if p[i][j]==0: return i,j
+def moves(p):
+x,y=find_blank(p)
+d=[(1,0),(-1,0),(0,1),(0,-1)]
+ res=[]
+ for dx,dy in d:
+nx,ny=x+dx,y+dy
+if 0<=nx<3 and 0<=ny<3:
+n=[r[:] for r in p]
+n[x][y],n[nx][ny]=n[nx][ny],n[x][y]
+ res.append(n)
+ return res
+def solve(start):
+q=deque([(start,[])])
+v=set()
+while q:
+ p,path=q.popleft()
+ if p==goal: return path+[p]
+ t=tuple(tuple(r) for r in p)
+ if t in v: continue
+  v.add(t)
+for m in moves(p): q.append((m,path+[p]))
+start=[[1,2,3],[4,0,6],[7,5,8]]
+ans=solve(start)
+if ans:
+ print("Solved in",len(ans)-1,"moves\n")
+ for s in ans: print_puzzle(s)
+else:
+print("No solution found")
