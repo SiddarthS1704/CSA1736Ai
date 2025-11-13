@@ -1,0 +1,18 @@
+def water_jug(x, y, target):
+    visited = set()
+ def pour(a, b):
+  if (a, b) in visited:
+   return
+print(f"Jug1: {a}L, Jug2: {b}L")
+  visited.add((a, b))
+if a == target or b == target:
+   print(" Target reached!")
+   return
+ pour(x, b)
+ pour(a, y)
+pour(0, b)
+pour(a, 0)
+pour(a - min(a, y - b), b + min(a, y - b))
+pour(a + min(b, x - a), b - min(b, x - a))
+     pour(0, 0)
+water_jug(4, 3, 2)
